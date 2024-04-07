@@ -1,4 +1,4 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"io"
@@ -6,7 +6,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -39,7 +38,7 @@ func Test_newStreamClient(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
-			sc, err := gotwi.ExportNewStreamClient(c.httpRes)
+			sc, err := go_x_client.ExportNewStreamClient(c.httpRes)
 			if c.wantErr {
 				asst.Error(err)
 				asst.Nil(sc)
@@ -53,13 +52,13 @@ func Test_newStreamClient(t *testing.T) {
 }
 
 func Test_Receive(t *testing.T) {
-	st, _ := gotwi.ExportNewStreamClient(&http.Response{
+	st, _ := go_x_client.ExportNewStreamClient(&http.Response{
 		Body: io.NopCloser(strings.NewReader(`{}`)),
 	})
 
 	cases := []struct {
 		name   string
-		st     *gotwi.StreamClient[*gotwi.MockResponse]
+		st     *go_x_client.StreamClient[*go_x_client.MockResponse]
 		close  bool
 		expect bool
 	}{
@@ -96,13 +95,13 @@ func Test_Receive(t *testing.T) {
 }
 
 func Test_Stop(t *testing.T) {
-	st, _ := gotwi.ExportNewStreamClient(&http.Response{
+	st, _ := go_x_client.ExportNewStreamClient(&http.Response{
 		Body: io.NopCloser(strings.NewReader(`{}`)),
 	})
 
 	cases := []struct {
 		name   string
-		st     *gotwi.StreamClient[*gotwi.MockResponse]
+		st     *go_x_client.StreamClient[*go_x_client.MockResponse]
 		close  bool
 		expect bool
 	}{
@@ -136,14 +135,14 @@ func Test_Stop(t *testing.T) {
 }
 
 func Test_Read(t *testing.T) {
-	st, _ := gotwi.ExportNewStreamClient(&http.Response{
+	st, _ := go_x_client.ExportNewStreamClient(&http.Response{
 		Header: map[string][]string{
 			"Content-Type": {"application/json;charset=UTF-8"},
 		},
 		Body: io.NopCloser(strings.NewReader(`{"text": "test"}`)),
 	})
 
-	emptySt, _ := gotwi.ExportNewStreamClient(&http.Response{
+	emptySt, _ := go_x_client.ExportNewStreamClient(&http.Response{
 		Header: map[string][]string{
 			"Content-Type": {"application/json;charset=UTF-8"},
 		},
@@ -152,15 +151,15 @@ func Test_Read(t *testing.T) {
 
 	cases := []struct {
 		name    string
-		st      *gotwi.StreamClient[*gotwi.MockResponse]
+		st      *go_x_client.StreamClient[*go_x_client.MockResponse]
 		close   bool
 		wantErr bool
-		expect  *gotwi.MockResponse
+		expect  *go_x_client.MockResponse
 	}{
 		{
 			name: "ok",
 			st:   st,
-			expect: &gotwi.MockResponse{
+			expect: &go_x_client.MockResponse{
 				Text: "test",
 			},
 		},

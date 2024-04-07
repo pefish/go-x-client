@@ -3,8 +3,8 @@ package listfollow
 import (
 	"context"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/list/listfollow/types"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/list/listfollow/types"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 
 // Returns a list of users who are followers of the specified List.
 // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
-func ListFollowers(ctx context.Context, c *gotwi.Client, p *types.ListFollowersInput) (*types.ListFollowersOutput, error) {
+func ListFollowers(ctx context.Context, c *go_x_client.Client, p *types.ListFollowersInput) (*types.ListFollowersOutput, error) {
 	res := &types.ListFollowersOutput{}
 	if err := c.CallAPI(ctx, listFollowersEndpoint, "GET", p, res); err != nil {
 		return nil, err
@@ -27,7 +27,7 @@ func ListFollowers(ctx context.Context, c *gotwi.Client, p *types.ListFollowersI
 
 // Returns all Lists a specified user follows.
 // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
-func ListFollowed(ctx context.Context, c *gotwi.Client, p *types.ListFollowedInput) (*types.ListFollowedOutput, error) {
+func ListFollowed(ctx context.Context, c *go_x_client.Client, p *types.ListFollowedInput) (*types.ListFollowedOutput, error) {
 	res := &types.ListFollowedOutput{}
 	if err := c.CallAPI(ctx, listFollowedEndpoint, "GET", p, res); err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func ListFollowed(ctx context.Context, c *gotwi.Client, p *types.ListFollowedInp
 
 // Enables the authenticated user to follow a List.
 // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-followed-lists
-func Create(ctx context.Context, c *gotwi.Client, p *types.CreateInput) (*types.CreateOutput, error) {
+func Create(ctx context.Context, c *go_x_client.Client, p *types.CreateInput) (*types.CreateOutput, error) {
 	res := &types.CreateOutput{}
 	if err := c.CallAPI(ctx, createEndpoint, "POST", p, res); err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func Create(ctx context.Context, c *gotwi.Client, p *types.CreateInput) (*types.
 
 // Enables the authenticated user to unfollow a List.
 // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-followed-lists-list_id
-func Delete(ctx context.Context, c *gotwi.Client, p *types.DeleteInput) (*types.DeleteOutput, error) {
+func Delete(ctx context.Context, c *go_x_client.Client, p *types.DeleteInput) (*types.DeleteOutput, error) {
 	res := &types.DeleteOutput{}
 	if err := c.CallAPI(ctx, deleteEndpoint, "DELETE", p, res); err != nil {
 		return nil, err

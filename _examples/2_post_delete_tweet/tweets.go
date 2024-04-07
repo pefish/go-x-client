@@ -3,15 +3,14 @@ package main
 import (
 	"context"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/managetweet"
-	"github.com/michimani/gotwi/tweet/managetweet/types"
+	"github.com/pefish/go-x-client/tweet/managetweet"
+	"github.com/pefish/go-x-client/tweet/managetweet/types"
 )
 
 // SimpleTweet posts a tweet with only text, and return posted tweet ID.
-func SimpleTweet(c *gotwi.Client, text string) (string, error) {
+func SimpleTweet(c *go_x_client.Client, text string) (string, error) {
 	p := &types.CreateInput{
-		Text: gotwi.String(text),
+		Text: go_x_client.String(text),
 	}
 
 	res, err := managetweet.Create(context.Background(), c, p)
@@ -19,11 +18,11 @@ func SimpleTweet(c *gotwi.Client, text string) (string, error) {
 		return "", err
 	}
 
-	return gotwi.StringValue(res.Data.ID), nil
+	return go_x_client.StringValue(res.Data.ID), nil
 }
 
 // DeleteTweet deletes a tweet specified by tweet ID.
-func DeleteTweet(c *gotwi.Client, id string) (bool, error) {
+func DeleteTweet(c *go_x_client.Client, id string) (bool, error) {
 	p := &types.DeleteInput{
 		ID: id,
 	}
@@ -33,5 +32,5 @@ func DeleteTweet(c *gotwi.Client, id string) (bool, error) {
 		return false, err
 	}
 
-	return gotwi.BoolValue(res.Data.Deleted), nil
+	return go_x_client.BoolValue(res.Data.Deleted), nil
 }

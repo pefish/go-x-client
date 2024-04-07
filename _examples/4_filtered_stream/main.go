@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/michimani/gotwi"
 )
 
 func main() {
@@ -50,15 +48,15 @@ func main() {
 	}
 }
 
-// newGotwiClientWithTimeout creates a new gotwi.Client
+// newGotwiClientWithTimeout creates a new go_x_client.Client
 // that has custom http.Client with arbitrary timeout.
-func newGotwiClientWithTimeout(timeout int) (*gotwi.Client, error) {
-	in := &gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth2BearerToken,
+func newGotwiClientWithTimeout(timeout int) (*go_x_client.Client, error) {
+	in := &go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth2BearerToken,
 		HTTPClient: &http.Client{
 			Timeout: time.Duration(timeout) * time.Second,
 		},
 	}
 
-	return gotwi.NewClient(in)
+	return go_x_client.NewClient(in)
 }

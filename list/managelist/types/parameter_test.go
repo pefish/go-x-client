@@ -5,8 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/list/managelist/types"
+	"github.com/pefish/go-x-client/list/managelist/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -81,7 +80,7 @@ func Test_CreateInput_Body(t *testing.T) {
 			name: "ok: has some parameters",
 			params: &types.CreateInput{
 				Name:        "test-list-name",
-				Description: gotwi.String("test description"),
+				Description: go_x_client.String("test description"),
 			},
 			expect: strings.NewReader(`{"name":"test-list-name","description":"test description"}`),
 		},
@@ -89,8 +88,8 @@ func Test_CreateInput_Body(t *testing.T) {
 			name: "ok: has some parameters",
 			params: &types.CreateInput{
 				Name:        "test-list-name",
-				Description: gotwi.String("test description"),
-				Private:     gotwi.Bool(true),
+				Description: go_x_client.String("test description"),
+				Private:     go_x_client.Bool(true),
 			},
 			expect: strings.NewReader(`{"name":"test-list-name","description":"test description","private":true}`),
 		},
@@ -208,8 +207,8 @@ func Test_UpdateInput_Body(t *testing.T) {
 			name: "ok: has some parameters",
 			params: &types.UpdateInput{
 				ID:          "test-id",
-				Name:        gotwi.String("test-list-name"),
-				Description: gotwi.String("test description"),
+				Name:        go_x_client.String("test-list-name"),
+				Description: go_x_client.String("test description"),
 			},
 			expect: strings.NewReader(`{"name":"test-list-name","description":"test description"}`),
 		},
@@ -217,18 +216,18 @@ func Test_UpdateInput_Body(t *testing.T) {
 			name: "ok: has some parameters",
 			params: &types.UpdateInput{
 				ID:          "test-id",
-				Name:        gotwi.String("test-list-name"),
-				Description: gotwi.String("test description"),
-				Private:     gotwi.Bool(true),
+				Name:        go_x_client.String("test-list-name"),
+				Description: go_x_client.String("test description"),
+				Private:     go_x_client.Bool(true),
 			},
 			expect: strings.NewReader(`{"name":"test-list-name","description":"test description","private":true}`),
 		},
 		{
 			name: "ok: has no required parameters (no effect)",
 			params: &types.UpdateInput{
-				Name:        gotwi.String("test-list-name"),
-				Description: gotwi.String("test description"),
-				Private:     gotwi.Bool(true),
+				Name:        go_x_client.String("test-list-name"),
+				Description: go_x_client.String("test description"),
+				Private:     go_x_client.Bool(true),
 			},
 			expect: strings.NewReader(`{"name":"test-list-name","description":"test description","private":true}`),
 		},
@@ -251,7 +250,7 @@ func Test_UpdateInput_ParameterMap(t *testing.T) {
 	}{
 		{
 			name:   "normal: some parameters",
-			params: &types.UpdateInput{Name: gotwi.String("name")},
+			params: &types.UpdateInput{Name: go_x_client.String("name")},
 			expect: map[string]string{},
 		},
 		{

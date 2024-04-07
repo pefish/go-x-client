@@ -1,10 +1,9 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/michimani/gotwi"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +24,7 @@ func Test_String(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			sp := gotwi.String(c.s)
+			sp := go_x_client.String(c.s)
 			assert.Equal(tt, c.s, *sp)
 		})
 	}
@@ -48,14 +47,14 @@ func Test_StringValue(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			sv := gotwi.StringValue(&c.s)
+			sv := go_x_client.StringValue(&c.s)
 			assert.Equal(tt, c.s, sv)
 		})
 	}
 
 	// nil case
 	t.Run("nil case", func(tt *testing.T) {
-		sv := gotwi.StringValue(nil)
+		sv := go_x_client.StringValue(nil)
 		assert.Empty(tt, sv)
 	})
 }
@@ -77,7 +76,7 @@ func Test_Bool(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			bp := gotwi.Bool(c.b)
+			bp := go_x_client.Bool(c.b)
 			assert.Equal(tt, c.b, *bp)
 		})
 	}
@@ -100,14 +99,14 @@ func Test_BoolValue(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			bv := gotwi.BoolValue(&c.b)
+			bv := go_x_client.BoolValue(&c.b)
 			assert.Equal(tt, c.b, bv)
 		})
 	}
 
 	// nil case
 	t.Run("nil case", func(tt *testing.T) {
-		bv := gotwi.BoolValue(nil)
+		bv := go_x_client.BoolValue(nil)
 		assert.False(tt, bv)
 	})
 }
@@ -133,7 +132,7 @@ func Test_Int(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			ip := gotwi.Int(c.i)
+			ip := go_x_client.Int(c.i)
 			assert.Equal(tt, c.i, *ip)
 		})
 	}
@@ -160,14 +159,14 @@ func Test_IntValue(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			iv := gotwi.IntValue(&c.i)
+			iv := go_x_client.IntValue(&c.i)
 			assert.Equal(tt, c.i, iv)
 		})
 	}
 
 	// nil case
 	t.Run("nil case", func(tt *testing.T) {
-		iv := gotwi.IntValue(nil)
+		iv := go_x_client.IntValue(nil)
 		assert.Equal(tt, iv, 0)
 	})
 }
@@ -193,7 +192,7 @@ func Test_Float64(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			ip := gotwi.Float64(c.i)
+			ip := go_x_client.Float64(c.i)
 			assert.Equal(tt, c.i, *ip)
 		})
 	}
@@ -220,14 +219,14 @@ func Test_Float64Value(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			iv := gotwi.Float64Value(&c.i)
+			iv := go_x_client.Float64Value(&c.i)
 			assert.Equal(tt, c.i, iv)
 		})
 	}
 
 	// nil case
 	t.Run("nil case", func(tt *testing.T) {
-		iv := gotwi.Float64Value(nil)
+		iv := go_x_client.Float64Value(nil)
 		assert.Equal(tt, iv, float64(0))
 	})
 }
@@ -245,7 +244,7 @@ func Test_Time(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			tp := gotwi.Time(c.t)
+			tp := go_x_client.Time(c.t)
 			assert.Equal(tt, c.t, *tp)
 		})
 	}
@@ -264,14 +263,14 @@ func Test_TimeValue(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			tv := gotwi.TimeValue(&c.t)
+			tv := go_x_client.TimeValue(&c.t)
 			assert.Equal(tt, c.t, tv)
 		})
 	}
 
 	// nil case
 	t.Run("nil case", func(tt *testing.T) {
-		tv := gotwi.TimeValue(nil)
+		tv := go_x_client.TimeValue(nil)
 		assert.Equal(tt, tv, time.Time{})
 	})
 }

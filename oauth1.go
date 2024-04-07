@@ -1,4 +1,4 @@
-package gotwi
+package go_x_client
 
 import (
 	"crypto/hmac"

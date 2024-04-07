@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/user/mute/types"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/user/mute/types"
 	"github.com/stretchr/testify/assert"
 )
 

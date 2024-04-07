@@ -1,6 +1,6 @@
 package types
 
-import "github.com/michimani/gotwi/resources"
+import "github.com/pefish/go-x-client/resources"
 
 type ListJobsOutput struct {
 	Data   []resources.Compliance   `json:"data"`

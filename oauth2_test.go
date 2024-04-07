@@ -1,26 +1,25 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_HasPartialError(t *testing.T) {
 	cases := []struct {
 		name   string
-		o2r    gotwi.OAuth2TokenResponse
+		o2r    go_x_client.OAuth2TokenResponse
 		expect bool
 	}{
 		{
 			name:   "normal: initial struct",
-			o2r:    gotwi.OAuth2TokenResponse{},
+			o2r:    go_x_client.OAuth2TokenResponse{},
 			expect: false,
 		},
 		{
 			name: "normal: has values",
-			o2r: gotwi.OAuth2TokenResponse{
+			o2r: go_x_client.OAuth2TokenResponse{
 				TokenType:   "token-type",
 				AccessToken: "access-token",
 			},
@@ -73,7 +72,7 @@ func Test_GenerateBearerToken(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			a, err := gotwi.GenerateBearerToken(c.client, "key", "sec")
+			a, err := go_x_client.GenerateBearerToken(c.client, "key", "sec")
 			if c.wantErr {
 				assert.Error(tt, err)
 				assert.Empty(tt, a)

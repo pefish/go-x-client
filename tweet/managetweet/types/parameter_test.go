@@ -5,8 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/managetweet/types"
+	"github.com/pefish/go-x-client/tweet/managetweet/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -51,7 +50,7 @@ func Test_CreateInput_ResolveEndpoint(t *testing.T) {
 		},
 		{
 			name:   "normal: has no parameters",
-			params: &types.CreateInput{Text: gotwi.String("test")},
+			params: &types.CreateInput{Text: go_x_client.String("test")},
 			expect: endpointBase,
 		},
 	}
@@ -73,12 +72,12 @@ func Test_CreateInput_Body(t *testing.T) {
 		{
 			name: "ok: has some json parameters",
 			params: &types.CreateInput{
-				Text: gotwi.String("test text"),
+				Text: go_x_client.String("test text"),
 				Poll: &types.CreateInputPoll{
-					DurationMinutes: gotwi.Int(5),
+					DurationMinutes: go_x_client.Int(5),
 					Options:         []string{"op1", "op2"},
 				},
-				QuoteTweetID: gotwi.String("quote_tweet_id"),
+				QuoteTweetID: go_x_client.String("quote_tweet_id"),
 			},
 			expect: strings.NewReader(`{"poll":{"duration_minutes":5,"options":["op1","op2"]},"quote_tweet_id":"quote_tweet_id","text":"test text"}`),
 		},
@@ -106,7 +105,7 @@ func Test_CreateInput_ParameterMap(t *testing.T) {
 	}{
 		{
 			name:   "normal: has both of path and json parameters",
-			params: &types.CreateInput{Text: gotwi.String("test")},
+			params: &types.CreateInput{Text: go_x_client.String("test")},
 			expect: map[string]string{},
 		},
 		{

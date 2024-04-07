@@ -3,9 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/resources"
-	"github.com/michimani/gotwi/tweet/like/types"
+	"github.com/pefish/go-x-client/resources"
+	"github.com/pefish/go-x-client/tweet/like/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -100,7 +99,7 @@ func Test_CreateOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Liked bool "json:\"liked\""
 				}{
-					Liked: *gotwi.Bool(true),
+					Liked: *go_x_client.Bool(true),
 				},
 			},
 			expect: false,
@@ -132,7 +131,7 @@ func Test_DeleteOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Liked bool "json:\"liked\""
 				}{
-					Liked: *gotwi.Bool(true),
+					Liked: *go_x_client.Bool(true),
 				},
 			},
 			expect: false,

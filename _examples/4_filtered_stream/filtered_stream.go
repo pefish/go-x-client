@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/filteredstream"
-	"github.com/michimani/gotwi/tweet/filteredstream/types"
+	"github.com/pefish/go-x-client/tweet/filteredstream"
+	"github.com/pefish/go-x-client/tweet/filteredstream/types"
 )
 
 // createSearchStreamRules lists search stream rules.
@@ -25,7 +24,7 @@ func listSearchStreamRules() {
 	}
 
 	for _, r := range res.Data {
-		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", gotwi.StringValue(r.ID), gotwi.StringValue(r.Value), gotwi.StringValue(r.Tag))
+		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", go_x_client.StringValue(r.ID), go_x_client.StringValue(r.Value), go_x_client.StringValue(r.Tag))
 	}
 }
 
@@ -51,7 +50,7 @@ func deleteSearchStreamRules(ruleID string) {
 	}
 
 	for _, r := range res.Data {
-		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", gotwi.StringValue(r.ID), gotwi.StringValue(r.Value), gotwi.StringValue(r.Tag))
+		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", go_x_client.StringValue(r.ID), go_x_client.StringValue(r.Value), go_x_client.StringValue(r.Tag))
 	}
 }
 
@@ -65,7 +64,7 @@ func createSearchStreamRules(keyword string) {
 
 	p := &types.CreateRulesInput{
 		Add: []types.AddingRule{
-			{Value: gotwi.String(keyword), Tag: gotwi.String(keyword)},
+			{Value: go_x_client.String(keyword), Tag: go_x_client.String(keyword)},
 		},
 	}
 
@@ -76,7 +75,7 @@ func createSearchStreamRules(keyword string) {
 	}
 
 	for _, r := range res.Data {
-		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", gotwi.StringValue(r.ID), gotwi.StringValue(r.Value), gotwi.StringValue(r.Tag))
+		fmt.Printf("ID: %s, Value: %s, Tag: %s\n", go_x_client.StringValue(r.ID), go_x_client.StringValue(r.Value), go_x_client.StringValue(r.Tag))
 	}
 }
 
@@ -104,7 +103,7 @@ func execSearchStream() {
 		} else {
 			if t != nil {
 				cnt++
-				fmt.Println(gotwi.StringValue(t.Data.ID), gotwi.StringValue(t.Data.Text))
+				fmt.Println(go_x_client.StringValue(t.Data.ID), go_x_client.StringValue(t.Data.Text))
 			}
 		}
 

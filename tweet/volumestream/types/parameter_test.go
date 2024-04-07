@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/tweet/volumestream/types"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/tweet/volumestream/types"
 	"github.com/stretchr/testify/assert"
 )
 

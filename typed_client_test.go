@@ -1,4 +1,4 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"context"
@@ -7,20 +7,20 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/internal/util"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/internal/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_NewTypedClient(t *testing.T) {
 	cases := []struct {
 		name    string
-		client  *gotwi.Client
+		client  *go_x_client.Client
 		wantNil bool
 	}{
 		{
 			name:   "ok",
-			client: &gotwi.Client{},
+			client: &go_x_client.Client{},
 		},
 		{
 			name:    "ok (nil)",
@@ -33,7 +33,7 @@ func Test_NewTypedClient(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
 
-			tc := gotwi.NewTypedClient[*gotwi.MockResponse](c.client)
+			tc := go_x_client.NewTypedClient[*go_x_client.MockResponse](c.client)
 			if c.wantNil {
 				asst.Nil(tc)
 				return
@@ -47,13 +47,13 @@ func Test_NewTypedClient(t *testing.T) {
 func Test_TypedClient_IsReady(t *testing.T) {
 	cases := []struct {
 		name   string
-		client *gotwi.Client
+		client *go_x_client.Client
 		expect bool
 	}{
 		{
 			name: "true: OAuth 1.0",
 			client: gotwiClientField{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 				OAuthToken:           "oauth-token",
 				SigningKey:           "signing-key",
 			}.build(),
@@ -62,7 +62,7 @@ func Test_TypedClient_IsReady(t *testing.T) {
 		{
 			name: "true: OAuth 2.0",
 			client: gotwiClientField{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth2BearerToken,
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth2BearerToken,
 				AccessToken:          "access-token",
 			}.build(),
 			expect: true,
@@ -83,7 +83,7 @@ func Test_TypedClient_IsReady(t *testing.T) {
 		{
 			name: "false: OAuth 1.0: oauth token is empty",
 			client: gotwiClientField{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 				OAuthToken:           "",
 				SigningKey:           "signing-key",
 			}.build(),
@@ -92,7 +92,7 @@ func Test_TypedClient_IsReady(t *testing.T) {
 		{
 			name: "false: OAuth 1.0: signing key is empty",
 			client: gotwiClientField{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 				OAuthToken:           "oauth-token",
 				SigningKey:           "",
 			}.build(),
@@ -101,7 +101,7 @@ func Test_TypedClient_IsReady(t *testing.T) {
 		{
 			name: "false: OAuth 2.0: access token is empty",
 			client: gotwiClientField{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth2BearerToken,
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth2BearerToken,
 				AccessToken:          "",
 			}.build(),
 			expect: false,
@@ -112,7 +112,7 @@ func Test_TypedClient_IsReady(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
 
-			tc := gotwi.NewTypedClient[*gotwi.MockResponse](c.client)
+			tc := go_x_client.NewTypedClient[*go_x_client.MockResponse](c.client)
 
 			b := tc.IsReady()
 			asst.Equal(c.expect, b)
@@ -139,7 +139,7 @@ func Test_TypedClient_Exec(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
 
-			tc := gotwi.NewTypedClient[*gotwi.MockResponse](&gotwi.Client{})
+			tc := go_x_client.NewTypedClient[*go_x_client.MockResponse](&go_x_client.Client{})
 			not200err, err := tc.Exec(c.req, &mockAPIResponse{})
 
 			asst.Nil(err)
@@ -208,7 +208,7 @@ func Test_TypedClient_ExecStream(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
 			mockClient := newMockHTTPClient(c.mockInput)
-			tc := gotwi.NewTypedClient[*gotwi.MockResponse](&gotwi.Client{
+			tc := go_x_client.NewTypedClient[*go_x_client.MockResponse](&go_x_client.Client{
 				Client: mockClient,
 			})
 
@@ -239,7 +239,7 @@ func Test_CallStreamAPI(t *testing.T) {
 	cases := []struct {
 		name            string
 		mockInput       *mockInput
-		clientInput     *gotwi.NewClientInput
+		clientInput     *go_x_client.NewClientInput
 		endpoint        string
 		method          string
 		envAPIKey       string
@@ -254,10 +254,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusOK,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{"message": "ok"}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          http.MethodGet,
@@ -273,10 +273,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusOK,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{"message": "ok"}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          http.MethodGet,
@@ -292,10 +292,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusOK,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{"message": "ok"}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          http.MethodGet,
@@ -311,10 +311,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusOK,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{"message": "ok"}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			envAPIKey:       "api-key",
@@ -330,10 +330,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusInternalServerError,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          http.MethodGet,
@@ -349,10 +349,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusInternalServerError,
 				ResponseBody:       io.NopCloser(strings.NewReader(`///`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          http.MethodGet,
@@ -368,10 +368,10 @@ func Test_CallStreamAPI(t *testing.T) {
 				ResponseStatusCode: http.StatusOK,
 				ResponseBody:       io.NopCloser(strings.NewReader(`{}`)),
 			},
-			clientInput: &gotwi.NewClientInput{
-				AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
-				OAuthToken:           "token",
-				OAuthTokenSecret:     "secret",
+			clientInput: &go_x_client.NewClientInput{
+				AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
+				AccessToken:          "token",
+				AccessTokenSecret:    "secret",
 			},
 			endpoint:        "test-endpoint",
 			method:          "invalid method",
@@ -386,14 +386,14 @@ func Test_CallStreamAPI(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
 			asst := assert.New(tt)
-			tt.Setenv("GOTWI_API_KEY", c.envAPIKey)
-			tt.Setenv("GOTWI_API_KEY_SECRET", c.envAPIKeySecret)
+			tt.Setenv("X_API_KEY", c.envAPIKey)
+			tt.Setenv("X_API_KEY_SECRET", c.envAPIKeySecret)
 
 			mockClient := newMockHTTPClient(c.mockInput)
 			in := c.clientInput
 			in.HTTPClient = mockClient
-			client, _ := gotwi.NewClient(in)
-			tc := gotwi.NewTypedClient[*gotwi.MockResponse](client)
+			client, _ := go_x_client.NewClient(in)
+			tc := go_x_client.NewTypedClient[*go_x_client.MockResponse](client)
 
 			s, err := tc.CallStreamAPI(context.Background(), c.endpoint, c.method, c.params)
 			if c.wantErr {

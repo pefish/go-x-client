@@ -1,4 +1,4 @@
-gotwi examples
+go_x_client examples
 ===
 ## Preparation
 

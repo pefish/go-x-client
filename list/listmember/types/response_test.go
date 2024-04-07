@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi/list/listmember/types"
-	"github.com/michimani/gotwi/resources"
+	"github.com/pefish/go-x-client/list/listmember/types"
+	"github.com/pefish/go-x-client/resources"
 	"github.com/stretchr/testify/assert"
 )
 

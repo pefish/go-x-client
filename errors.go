@@ -1,12 +1,12 @@
-package gotwi
+package go_x_client
 
 import (
 	"errors"
 	"fmt"
 	"strings"
 
-	"github.com/michimani/gotwi/internal/gotwierrors"
-	"github.com/michimani/gotwi/resources"
+	"github.com/pefish/go-x-client/internal/gotwierrors"
+	"github.com/pefish/go-x-client/resources"
 )
 
 type GotwiError struct {

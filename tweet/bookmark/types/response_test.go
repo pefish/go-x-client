@@ -3,9 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/resources"
-	"github.com/michimani/gotwi/tweet/bookmark/types"
+	"github.com/pefish/go-x-client/resources"
+	"github.com/pefish/go-x-client/tweet/bookmark/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -63,7 +62,7 @@ func Test_CreateOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Bookmarked bool "json:\"bookmarked\""
 				}{
-					Bookmarked: *gotwi.Bool(true),
+					Bookmarked: *go_x_client.Bool(true),
 				},
 			},
 			expect: false,
@@ -95,7 +94,7 @@ func Test_DeleteOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Bookmarked bool "json:\"bookmarked\""
 				}{
-					Bookmarked: *gotwi.Bool(true),
+					Bookmarked: *go_x_client.Bool(true),
 				},
 			},
 			expect: false,

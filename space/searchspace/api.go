@@ -3,8 +3,8 @@ package searchspace
 import (
 	"context"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/space/searchspace/types"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/space/searchspace/types"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 // This endpoint performs a keyword search, meaning that it will return Spaces
 // that are an exact case-insensitive match of the specified search term. The search term will match the original title of the Space.
 // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
-func List(ctx context.Context, c *gotwi.Client, p *types.ListInput) (*types.ListOutput, error) {
+func List(ctx context.Context, c *go_x_client.Client, p *types.ListInput) (*types.ListOutput, error) {
 	res := &types.ListOutput{}
 	if err := c.CallAPI(ctx, listEndpoint, "GET", p, res); err != nil {
 		return nil, err

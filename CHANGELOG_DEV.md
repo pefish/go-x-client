@@ -23,97 +23,97 @@ v0.13.0 (2022-11-12)
 
 ### Fixes
 
-* Fix invalid field names. ([635bd32](https://github.com/michimani/gotwi/commit/635bd326a8162aea88a39324283630a416ecc0cc))
+* Fix invalid field names. ([635bd32](https://github.com/pefish/go-x-client/commit/635bd326a8162aea88a39324283630a416ecc0cc))
 
 v0.12.5 (2022-11-12)
 ===
 
 ### Features
 
-* Support `EditHistoryTweetIDs` fields in `Tweet` struct and support `MatchingRules` for response of `GET /2/tweets/search/stream`. ([bd569c4](https://github.com/michimani/gotwi/commit/bd569c412e9d3e7e6822e798664344e6fd93e917))
+* Support `EditHistoryTweetIDs` fields in `Tweet` struct and support `MatchingRules` for response of `GET /2/tweets/search/stream`. ([bd569c4](https://github.com/pefish/go-x-client/commit/bd569c412e9d3e7e6822e798664344e6fd93e917))
 
 v0.12.4 (2022-10-30)
 ===
 
 ### Features
 
-* Support all fields in `includes` field for response of `GET /2/tweets/search/recent` and `GET /2/tweets/search/all`. ([bc396a3](https://github.com/michimani/gotwi/commit/bc396a33264407399b4fd56a21f1e1c87d310b74))
+* Support all fields in `includes` field for response of `GET /2/tweets/search/recent` and `GET /2/tweets/search/all`. ([bc396a3](https://github.com/pefish/go-x-client/commit/bc396a33264407399b4fd56a21f1e1c87d310b74))
 
 v0.12.3 (2022-10-20)
 ===
 
 ### Features
 
-* Support `media.variants` field for response of `GET /2/tweets/search/stream` and so on. ([b453dc2](https://github.com/michimani/gotwi/commit/b453dc2449c3d3f56395831df0356bb9666246b9))
+* Support `media.variants` field for response of `GET /2/tweets/search/stream` and so on. ([b453dc2](https://github.com/pefish/go-x-client/commit/b453dc2449c3d3f56395831df0356bb9666246b9))
 
 v0.12.2 (2022-08-29)
 ===
 
 ### Fixes
 
-* Fix struct of response for `GET /2/users/:id/tweets`, `GET /2/users/:id/mentions` and `GET /2/users/:id/timelines/reverse_chronological`. ([25c8bf0](https://github.com/michimani/gotwi/commit/25c8bf055dc05c94c499b3d2856109c1567c370b)), ([#288](https://github.com/michimani/gotwi/issues/288)) ([56f1c42](https://github.com/michimani/gotwi/commit/56f1c420a7a2ec1333662941dbf0a5fa0fd12669))
+* Fix struct of response for `GET /2/users/:id/tweets`, `GET /2/users/:id/mentions` and `GET /2/users/:id/timelines/reverse_chronological`. ([25c8bf0](https://github.com/pefish/go-x-client/commit/25c8bf055dc05c94c499b3d2856109c1567c370b)), ([#288](https://github.com/pefish/go-x-client/issues/288)) ([56f1c42](https://github.com/pefish/go-x-client/commit/56f1c420a7a2ec1333662941dbf0a5fa0fd12669))
 
 v0.12.1 (2022-08-17)
 ===
 
 ### Fixes
 
-* Fix struct of response for `PUT /2/lists/:id`. ([#284](https://github.com/michimani/gotwi/issues/284)) ([f131485](https://github.com/michimani/gotwi/commit/f131485efb2d671b12d6c424d1611042630aa5ca))
+* Fix struct of response for `PUT /2/lists/:id`. ([#284](https://github.com/pefish/go-x-client/issues/284)) ([f131485](https://github.com/pefish/go-x-client/commit/f131485efb2d671b12d6c424d1611042630aa5ca))
 
 v0.12.0 (2022-08-04)
 ===
 
 ### New Supported APIs
 
-* Support New API: `GET /2/users/:id/timelines/reverse_chronological` ([#268](https://github.com/michimani/gotwi/issues/268)) ([f8153fa](https://github.com/michimani/gotwi/commit/f8153fa9907edaab0ad54a6f0bd4e0e3d8036cac))
+* Support New API: `GET /2/users/:id/timelines/reverse_chronological` ([#268](https://github.com/pefish/go-x-client/issues/268)) ([f8153fa](https://github.com/pefish/go-x-client/commit/f8153fa9907edaab0ad54a6f0bd4e0e3d8036cac))
 
 ### Features
 
-* Support `max_results` and `pagination_token` parameter at `GET /2/tweets/:id/liking_users`. ([#272](https://github.com/michimani/gotwi/issues/272)) ([308e2b8](https://github.com/michimani/gotwi/commit/308e2b8ba287d98a934b33f56fdaee90fa741b29))
-* Support `max_results` and `pagination_token` parameter at `GET /2/tweets/:id/retweeted_by`. ([#270](https://github.com/michimani/gotwi/issues/270)) ([279e364](https://github.com/michimani/gotwi/commit/279e364b64362d72192dd27385666793b5488e4c))
+* Support `max_results` and `pagination_token` parameter at `GET /2/tweets/:id/liking_users`. ([#272](https://github.com/pefish/go-x-client/issues/272)) ([308e2b8](https://github.com/pefish/go-x-client/commit/308e2b8ba287d98a934b33f56fdaee90fa741b29))
+* Support `max_results` and `pagination_token` parameter at `GET /2/tweets/:id/retweeted_by`. ([#270](https://github.com/pefish/go-x-client/issues/270)) ([279e364](https://github.com/pefish/go-x-client/commit/279e364b64362d72192dd27385666793b5488e4c))
 
 
 ### Fixes
 
-* Fix invalid field type. ([#279](https://github.com/michimani/gotwi/issues/279)) ([f8153fa](https://github.com/michimani/gotwi/commit/f8153fa9907edaab0ad54a6f0bd4e0e3d8036cac))
-* Remove invalid input fields. ([#272](https://github.com/michimani/gotwi/issues/272)) ([308e2b8](https://github.com/michimani/gotwi/commit/308e2b8ba287d98a934b33f56fdaee90fa741b29)) ([#270](https://github.com/michimani/gotwi/issues/270)) ([279e364](https://github.com/michimani/gotwi/commit/279e364b64362d72192dd27385666793b5488e4c))
+* Fix invalid field type. ([#279](https://github.com/pefish/go-x-client/issues/279)) ([f8153fa](https://github.com/pefish/go-x-client/commit/f8153fa9907edaab0ad54a6f0bd4e0e3d8036cac))
+* Remove invalid input fields. ([#272](https://github.com/pefish/go-x-client/issues/272)) ([308e2b8](https://github.com/pefish/go-x-client/commit/308e2b8ba287d98a934b33f56fdaee90fa741b29)) ([#270](https://github.com/pefish/go-x-client/issues/270)) ([279e364](https://github.com/pefish/go-x-client/commit/279e364b64362d72192dd27385666793b5488e4c))
 
 v0.11.8 (2022-08-04)
 ===
 
 ### Features
 
-* Support `quote_tweet_id` parameter at `POST /2/tweets`. ([#267](https://github.com/michimani/gotwi/issues/267)) ([b6de378](https://github.com/michimani/gotwi/commit/b6de37861aaa383f08697593d0c1c07a8cf8954f))
-* Support `backfill_minutes` parameter at `GET /2/tweets/sample/stream`. ([#269](https://github.com/michimani/gotwi/issues/269)) ([b77035d](https://github.com/michimani/gotwi/commit/b77035d44d93b63c216e43dc6e7671fe06a140c0))
-* Support `exclude` parameter at `GET /2/tweets/:id/quote_tweets`. ([#271](https://github.com/michimani/gotwi/issues/271)) [6b319d2](https://github.com/michimani/gotwi/commit/6b319d2908d676548eb9e7238a9f485edf365690)
+* Support `quote_tweet_id` parameter at `POST /2/tweets`. ([#267](https://github.com/pefish/go-x-client/issues/267)) ([b6de378](https://github.com/pefish/go-x-client/commit/b6de37861aaa383f08697593d0c1c07a8cf8954f))
+* Support `backfill_minutes` parameter at `GET /2/tweets/sample/stream`. ([#269](https://github.com/pefish/go-x-client/issues/269)) ([b77035d](https://github.com/pefish/go-x-client/commit/b77035d44d93b63c216e43dc6e7671fe06a140c0))
+* Support `exclude` parameter at `GET /2/tweets/:id/quote_tweets`. ([#271](https://github.com/pefish/go-x-client/issues/271)) [6b319d2](https://github.com/pefish/go-x-client/commit/6b319d2908d676548eb9e7238a9f485edf365690)
 
 v0.11.7 (2022-08-03)
 ===
 
 ### Features
 
-* Support `sort_order` parameter for Search Tweet API. ([#263](https://github.com/michimani/gotwi/issues/263)) ([193f336](https://github.com/michimani/gotwi/commit/193f3362c664844a3d11cbc53fb56728ec51e96f))
+* Support `sort_order` parameter for Search Tweet API. ([#263](https://github.com/pefish/go-x-client/issues/263)) ([193f336](https://github.com/pefish/go-x-client/commit/193f3362c664844a3d11cbc53fb56728ec51e96f))
 
 v0.11.6 (2022-07-06)
 ===
 
 ### Fixes
 
-* `filteredstream.SearchStream` sometimes fails with "unexpected end of JSON input" error. ([#259](https://github.com/michimani/gotwi/issues/259))
+* `filteredstream.SearchStream` sometimes fails with "unexpected end of JSON input" error. ([#259](https://github.com/pefish/go-x-client/issues/259))
 
 v0.11.5 (2022-06-12)
 ===
 
 ### Fixes
 
-* TweetEntities struct has some invalid and not enough fields. ([#256](https://github.com/michimani/gotwi/pull/256/files))
+* TweetEntities struct has some invalid and not enough fields. ([#256](https://github.com/pefish/go-x-client/pull/256/files))
 
 v0.11.4 (2022-05-27)
 ===
 
 ### Fixes
 
-* Media struct does not have URL field. ([#252](https://github.com/michimani/gotwi/pull/252/files))
+* Media struct does not have URL field. ([#252](https://github.com/pefish/go-x-client/pull/252/files))
 
 v0.11.3 (2022-05-27)
 ===
@@ -124,7 +124,7 @@ v0.11.3 (2022-05-27)
 
 ### Fixes
 
-* Tweet lookup API response does not include Tweets, Places, Media, and Polls Fields. ([#248](https://github.com/michimani/gotwi/pull/248/files))
+* Tweet lookup API response does not include Tweets, Places, Media, and Polls Fields. ([#248](https://github.com/pefish/go-x-client/pull/248/files))
 
 v0.11.2 (2022-04-21)
 ===

@@ -1,4 +1,4 @@
-package gotwi
+package go_x_client
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/michimani/gotwi/internal/util"
+	"github.com/pefish/go-x-client/internal/util"
 )
 
 type StreamClient[T util.Response] struct {

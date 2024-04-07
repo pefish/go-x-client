@@ -1,4 +1,4 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"encoding/json"
@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/internal/util"
-	"github.com/michimani/gotwi/resources"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/internal/util"
+	"github.com/pefish/go-x-client/resources"
 )
 
 type RoundTripFunc func(req *http.Request) *http.Response
@@ -62,7 +62,7 @@ type MockGotwiClient struct {
 	MockExec                 func(req *http.Request, i util.Response) (*resources.Non2XXError, error)
 	MockIsReady              func() bool
 	MockAccessToken          func() string
-	MockAuthenticationMethod func() gotwi.AuthenticationMethod
+	MockAuthenticationMethod func() go_x_client.AuthenticationMethod
 	MockOAuthToken           func() string
 	MockOAuthConsumerKey     func() string
 	MockSigningKey           func() string
@@ -82,11 +82,11 @@ func (m *MockGotwiClient) IsReady() bool {
 	}
 
 	switch m.AuthenticationMethod() {
-	case gotwi.AuthenMethodOAuth1UserContext:
+	case go_x_client.AuthenMethodOAuth1UserContext:
 		if m.OAuthToken() == "" || m.SigningKey() == "" {
 			return false
 		}
-	case gotwi.AuthenMethodOAuth2BearerToken:
+	case go_x_client.AuthenMethodOAuth2BearerToken:
 		if m.AccessToken() == "" {
 			return false
 		}
@@ -99,7 +99,7 @@ func (m *MockGotwiClient) AccessToken() string {
 	return m.MockAccessToken()
 }
 
-func (m *MockGotwiClient) AuthenticationMethod() gotwi.AuthenticationMethod {
+func (m *MockGotwiClient) AuthenticationMethod() go_x_client.AuthenticationMethod {
 	return m.MockAuthenticationMethod()
 }
 
@@ -143,7 +143,7 @@ type mockFuncInput struct {
 	MockExec                 func(req *http.Request, i util.Response) (*resources.Non2XXError, error)
 	MockIsReady              func() bool
 	MockAccessToken          func() string
-	MockAuthenticationMethod func() gotwi.AuthenticationMethod
+	MockAuthenticationMethod func() go_x_client.AuthenticationMethod
 	MockOAuthToken           func() string
 	MockOAuthConsumerKey     func() string
 	MockSigningKey           func() string
@@ -173,7 +173,7 @@ func newMockGotwiClientWithFunc(in mockFuncInput) *MockGotwiClient {
 	if in.MockAuthenticationMethod != nil {
 		m.MockAuthenticationMethod = in.MockAuthenticationMethod
 	} else {
-		m.MockAuthenticationMethod = func() gotwi.AuthenticationMethod { return gotwi.AuthenticationMethod("") }
+		m.MockAuthenticationMethod = func() go_x_client.AuthenticationMethod { return go_x_client.AuthenticationMethod("") }
 	}
 
 	if in.MockOAuthToken != nil {

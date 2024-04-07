@@ -3,8 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/managetweet/types"
+	"github.com/pefish/go-x-client/tweet/managetweet/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -26,8 +25,8 @@ func Test_CreateOutput_HasPartialError(t *testing.T) {
 					ID   *string "json:\"id\""
 					Text *string "json:\"text\""
 				}{
-					ID:   gotwi.String("id"),
-					Text: gotwi.String("text"),
+					ID:   go_x_client.String("id"),
+					Text: go_x_client.String("text"),
 				},
 			},
 			expect: false,
@@ -59,7 +58,7 @@ func Test_DeleteOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Deleted *bool "json:\"deleted\""
 				}{
-					Deleted: gotwi.Bool(true),
+					Deleted: go_x_client.Bool(true),
 				},
 			},
 			expect: false,

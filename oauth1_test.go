@@ -1,22 +1,21 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_EndpointDetail(t *testing.T) {
 	cases := []struct {
 		name     string
-		endpoint gotwi.Endpoint
-		expect   *gotwi.EndpointInfo
+		endpoint go_x_client.Endpoint
+		expect   *go_x_client.EndpointInfo
 	}{
 		{
 			name:     "ok",
 			endpoint: "endpoint",
-			expect: &gotwi.EndpointInfo{
+			expect: &go_x_client.EndpointInfo{
 				Raw:                      "endpoint",
 				Base:                     "endpoint",
 				EncodedQueryParameterMap: map[string]string{},
@@ -25,7 +24,7 @@ func Test_EndpointDetail(t *testing.T) {
 		{
 			name:     "ok with some parameters",
 			endpoint: "endpoint?key1=value1&key2=value2",
-			expect: &gotwi.EndpointInfo{
+			expect: &go_x_client.EndpointInfo{
 				Raw:  "endpoint?key1=value1&key2=value2",
 				Base: "endpoint",
 				EncodedQueryParameterMap: map[string]string{
@@ -37,7 +36,7 @@ func Test_EndpointDetail(t *testing.T) {
 		{
 			name:     "ok with encoded parameter",
 			endpoint: "endpoint?key1=value1&key2=value2&key3=value%20value3",
-			expect: &gotwi.EndpointInfo{
+			expect: &go_x_client.EndpointInfo{
 				Raw:  "endpoint?key1=value1&key2=value2&key3=value%20value3",
 				Base: "endpoint",
 				EncodedQueryParameterMap: map[string]string{
@@ -66,12 +65,12 @@ func Test_EndpointDetail(t *testing.T) {
 func Test_CreateOAuthSignature(t *testing.T) {
 	cases := []struct {
 		name    string
-		in      *gotwi.CreateOAuthSignatureInput
+		in      *go_x_client.CreateOAuthSignatureInput
 		wantErr bool
 	}{
 		{
 			name: "normal",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -83,7 +82,7 @@ func Test_CreateOAuthSignature(t *testing.T) {
 		},
 		{
 			name: "normal: parameter map is nil",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -97,7 +96,7 @@ func Test_CreateOAuthSignature(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			out, err := gotwi.CreateOAuthSignature(c.in)
+			out, err := go_x_client.CreateOAuthSignature(c.in)
 			if c.wantErr {
 				assert.Error(tt, err)
 				return
@@ -126,7 +125,7 @@ func Test_generateOAthNonce(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			n, err := gotwi.ExportGenerateOAthNonce()
+			n, err := go_x_client.ExportGenerateOAthNonce()
 			if c.wantErr {
 				assert.Error(tt, err)
 				return
@@ -157,7 +156,7 @@ func Test_endpointBase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			eb := gotwi.ExportEndpointBase(c.endpoint)
+			eb := go_x_client.ExportEndpointBase(c.endpoint)
 
 			assert.Equal(tt, c.expect, eb)
 		})
@@ -167,14 +166,14 @@ func Test_endpointBase(t *testing.T) {
 func Test_createParameterString(t *testing.T) {
 	cases := []struct {
 		name   string
-		in     *gotwi.CreateOAuthSignatureInput
+		in     *go_x_client.CreateOAuthSignatureInput
 		nonce  string
 		ts     string
 		expect string
 	}{
 		{
 			name: "normal: parameter map is nil",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -188,7 +187,7 @@ func Test_createParameterString(t *testing.T) {
 		},
 		{
 			name: "normal: one parameter",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -202,7 +201,7 @@ func Test_createParameterString(t *testing.T) {
 		},
 		{
 			name: "normal: two parameters",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -216,7 +215,7 @@ func Test_createParameterString(t *testing.T) {
 		},
 		{
 			name: "normal: parameter with white space",
-			in: &gotwi.CreateOAuthSignatureInput{
+			in: &go_x_client.CreateOAuthSignatureInput{
 				HTTPMethod:       "POST",
 				RawEndpoint:      "raw-endpoint",
 				OAuthConsumerKey: "o-auth-consumer-key",
@@ -232,7 +231,7 @@ func Test_createParameterString(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			s := gotwi.ExportCreateParameterString(c.nonce, c.ts, c.in)
+			s := go_x_client.ExportCreateParameterString(c.nonce, c.ts, c.in)
 			assert.Equal(tt, c.expect, s)
 		})
 	}
@@ -278,7 +277,7 @@ func Test_createSignatureBase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			b := gotwi.ExportCreateSignatureBase(c.method, c.endpointBase, c.queryParameterString)
+			b := go_x_client.ExportCreateSignatureBase(c.method, c.endpointBase, c.queryParameterString)
 			assert.Equal(tt, c.expect, b)
 		})
 	}
@@ -324,7 +323,7 @@ func Test_calculateSignature(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(tt *testing.T) {
-			s, err := gotwi.ExportCalculateSignature(c.base, c.key)
+			s, err := go_x_client.ExportCalculateSignature(c.base, c.key)
 			if c.wantErr {
 				assert.Error(tt, err)
 				return

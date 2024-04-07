@@ -3,8 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/hidereply/types"
+	"github.com/pefish/go-x-client/tweet/hidereply/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +24,7 @@ func Test_UpdateOutput_HasPartialError(t *testing.T) {
 				Data: struct {
 					Hidden bool "json:\"hidden\""
 				}{
-					Hidden: *gotwi.Bool(true),
+					Hidden: *go_x_client.Bool(true),
 				},
 			},
 			expect: false,

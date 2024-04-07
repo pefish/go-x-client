@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/michimani/gotwi/internal/util"
+	"github.com/pefish/go-x-client/internal/util"
 )
 
 type ComplianceType string

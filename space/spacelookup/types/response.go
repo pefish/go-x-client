@@ -1,6 +1,6 @@
 package types
 
-import "github.com/michimani/gotwi/resources"
+import "github.com/pefish/go-x-client/resources"
 
 type GetOutput struct {
 	Data     resources.Space `json:"data"`

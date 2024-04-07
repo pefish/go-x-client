@@ -1,11 +1,11 @@
-package gotwi
+package go_x_client
 
 import (
 	"context"
 	"net/http"
 
-	"github.com/michimani/gotwi/internal/util"
-	"github.com/michimani/gotwi/resources"
+	"github.com/pefish/go-x-client/internal/util"
+	"github.com/pefish/go-x-client/resources"
 )
 
 type TypedClient[T util.Response] struct {

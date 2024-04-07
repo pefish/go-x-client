@@ -3,8 +3,8 @@ package filteredstream
 import (
 	"context"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/filteredstream/types"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/tweet/filteredstream/types"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 
 // Return a list of rules currently active on the streaming endpoint, either as a list or individually.
 // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
-func ListRules(ctx context.Context, c *gotwi.Client, p *types.ListRulesInput) (*types.ListRulesOutput, error) {
+func ListRules(ctx context.Context, c *go_x_client.Client, p *types.ListRulesInput) (*types.ListRulesOutput, error) {
 	res := &types.ListRulesOutput{}
 	if err := c.CallAPI(ctx, listRulesEndpoint, "GET", p, res); err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func ListRules(ctx context.Context, c *gotwi.Client, p *types.ListRulesInput) (*
 
 // Add rules to your stream.
 // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
-func CreateRules(ctx context.Context, c *gotwi.Client, p *types.CreateRulesInput) (*types.CreateRulesOutput, error) {
+func CreateRules(ctx context.Context, c *go_x_client.Client, p *types.CreateRulesInput) (*types.CreateRulesOutput, error) {
 	res := &types.CreateRulesOutput{}
 	if err := c.CallAPI(ctx, createOrDeleteRulesEndpoint, "POST", p, res); err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func CreateRules(ctx context.Context, c *gotwi.Client, p *types.CreateRulesInput
 
 // Delete rules to your stream.
 // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
-func DeleteRules(ctx context.Context, c *gotwi.Client, p *types.DeleteRulesInput) (*types.DeleteRulesOutput, error) {
+func DeleteRules(ctx context.Context, c *go_x_client.Client, p *types.DeleteRulesInput) (*types.DeleteRulesOutput, error) {
 	res := &types.DeleteRulesOutput{}
 	if err := c.CallAPI(ctx, createOrDeleteRulesEndpoint, "POST", p, res); err != nil {
 		return nil, err
@@ -49,8 +49,8 @@ func DeleteRules(ctx context.Context, c *gotwi.Client, p *types.DeleteRulesInput
 // Streams Tweets in real-time that match the rules that you added to the stream using the POST /tweets/search/stream/rules endpoint.
 // If you haven't added any rules to your stream, you will not receive any Tweets.
 // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
-func SearchStream(ctx context.Context, c *gotwi.Client, p *types.SearchStreamInput) (*gotwi.StreamClient[*types.SearchStreamOutput], error) {
-	tc := gotwi.NewTypedClient[*types.SearchStreamOutput](c)
+func SearchStream(ctx context.Context, c *go_x_client.Client, p *types.SearchStreamInput) (*go_x_client.StreamClient[*types.SearchStreamOutput], error) {
+	tc := go_x_client.NewTypedClient[*types.SearchStreamOutput](c)
 	s, err := tc.CallStreamAPI(ctx, searchStreamEndpoint, "GET", p)
 	if err != nil {
 		return nil, err

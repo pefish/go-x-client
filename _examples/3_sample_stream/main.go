@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-
-	"github.com/michimani/gotwi"
 )
 
 func main() {
@@ -28,10 +26,10 @@ func main() {
 	samplingTweets(client, count)
 }
 
-func newOAuth2Client() (*gotwi.Client, error) {
-	in2 := &gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth2BearerToken,
+func newOAuth2Client() (*go_x_client.Client, error) {
+	in2 := &go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth2BearerToken,
 	}
 
-	return gotwi.NewClient(in2)
+	return go_x_client.NewClient(in2)
 }

@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/michimani/gotwi/internal/util"
+	"github.com/pefish/go-x-client/internal/util"
 	"github.com/stretchr/testify/assert"
 )
 

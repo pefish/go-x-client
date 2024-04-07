@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/tweet/searchtweet"
-	sttypes "github.com/michimani/gotwi/tweet/searchtweet/types"
-	"github.com/michimani/gotwi/user/follow"
-	ftypes "github.com/michimani/gotwi/user/follow/types"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/tweet/searchtweet"
+	sttypes "github.com/pefish/go-x-client/tweet/searchtweet/types"
+	"github.com/pefish/go-x-client/user/follow"
+	ftypes "github.com/pefish/go-x-client/user/follow/types"
 )
 
 type twitterUser struct {
@@ -24,7 +23,7 @@ func (f twitterUser) displayName() string {
 
 // onlyFollowsRecentActivity will output the accounts that are unilaterally following
 // the specified user ID, along with up to three most recent tweets.
-func onlyFollowsRecentActivity(c *gotwi.Client, userID string) {
+func onlyFollowsRecentActivity(c *go_x_client.Client, userID string) {
 	// list follows
 	followings := map[string]twitterUser{}
 
@@ -45,15 +44,15 @@ func onlyFollowsRecentActivity(c *gotwi.Client, userID string) {
 		}
 
 		for _, u := range res.Data {
-			followings[gotwi.StringValue(u.ID)] = twitterUser{
-				ID:       gotwi.StringValue(u.ID),
-				Name:     gotwi.StringValue(u.Name),
-				Username: gotwi.StringValue(u.Username),
+			followings[go_x_client.StringValue(u.ID)] = twitterUser{
+				ID:       go_x_client.StringValue(u.ID),
+				Name:     go_x_client.StringValue(u.Name),
+				Username: go_x_client.StringValue(u.Username),
 			}
 		}
 
 		if res.Meta.NextToken != nil {
-			paginationToken = gotwi.StringValue(res.Meta.NextToken)
+			paginationToken = go_x_client.StringValue(res.Meta.NextToken)
 		} else {
 			paginationToken = ""
 		}
@@ -79,15 +78,15 @@ func onlyFollowsRecentActivity(c *gotwi.Client, userID string) {
 		}
 
 		for _, u := range res.Data {
-			followers[gotwi.StringValue(u.ID)] = twitterUser{
-				ID:       gotwi.StringValue(u.ID),
-				Name:     gotwi.StringValue(u.Name),
-				Username: gotwi.StringValue(u.Username),
+			followers[go_x_client.StringValue(u.ID)] = twitterUser{
+				ID:       go_x_client.StringValue(u.ID),
+				Name:     go_x_client.StringValue(u.Name),
+				Username: go_x_client.StringValue(u.Username),
 			}
 		}
 
 		if res.Meta.NextToken != nil {
-			paginationToken = gotwi.StringValue(res.Meta.NextToken)
+			paginationToken = go_x_client.StringValue(res.Meta.NextToken)
 		} else {
 			paginationToken = ""
 		}
@@ -121,7 +120,7 @@ func onlyFollowsRecentActivity(c *gotwi.Client, userID string) {
 			if c > 3 {
 				break
 			}
-			fmt.Printf("[%s] %s\n", t.CreatedAt, gotwi.StringValue(t.Text))
+			fmt.Printf("[%s] %s\n", t.CreatedAt, go_x_client.StringValue(t.Text))
 			c++
 		}
 

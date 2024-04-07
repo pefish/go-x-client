@@ -5,8 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/compliance/batchcompliance/types"
+	"github.com/pefish/go-x-client/compliance/batchcompliance/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -277,14 +276,14 @@ func Test_CreateJobInput_Body(t *testing.T) {
 		{
 			name: "ok: name",
 			params: &types.CreateJobInput{
-				Name: gotwi.String("test-name"),
+				Name: go_x_client.String("test-name"),
 			},
 			expect: strings.NewReader(`{"name":"test-name"}`),
 		},
 		{
 			name: "ok: resumable",
 			params: &types.CreateJobInput{
-				Resumable: gotwi.Bool(true),
+				Resumable: go_x_client.Bool(true),
 			},
 			expect: strings.NewReader(`{"resumable":true}`),
 		},
@@ -292,8 +291,8 @@ func Test_CreateJobInput_Body(t *testing.T) {
 			name: "ok: all",
 			params: &types.CreateJobInput{
 				Type:      types.ComplianceTypeTweets,
-				Name:      gotwi.String("test-name"),
-				Resumable: gotwi.Bool(true),
+				Name:      go_x_client.String("test-name"),
+				Resumable: go_x_client.Bool(true),
 			},
 			expect: strings.NewReader(`{"type":"tweets","name":"test-name","resumable":true}`),
 		},

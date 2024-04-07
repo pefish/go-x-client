@@ -3,8 +3,8 @@ package batchcompliance
 import (
 	"context"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/compliance/batchcompliance/types"
+	go_x_client "github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/compliance/batchcompliance/types"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 
 // Returns a list of recent compliance jobs.
 // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
-func ListJobs(ctx context.Context, c *gotwi.Client, p *types.ListJobsInput) (*types.ListJobsOutput, error) {
+func ListJobs(ctx context.Context, c *go_x_client.Client, p *types.ListJobsInput) (*types.ListJobsOutput, error) {
 	res := &types.ListJobsOutput{}
 	if err := c.CallAPI(ctx, listJobsEndpoint, "GET", p, res); err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func ListJobs(ctx context.Context, c *gotwi.Client, p *types.ListJobsInput) (*ty
 
 // Get a single compliance job with the specified ID.
 // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
-func GetJob(ctx context.Context, c *gotwi.Client, p *types.GetJobInput) (*types.GetJobOutput, error) {
+func GetJob(ctx context.Context, c *go_x_client.Client, p *types.GetJobInput) (*types.GetJobOutput, error) {
 	res := &types.GetJobOutput{}
 	if err := c.CallAPI(ctx, GetJobEndpoint, "GET", p, res); err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func GetJob(ctx context.Context, c *gotwi.Client, p *types.GetJobInput) (*types.
 // The destination URL represents the location that contains the list of IDs consumed by your App.
 // You can run one batch job at a time.
 // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
-func CreateJob(ctx context.Context, c *gotwi.Client, p *types.CreateJobInput) (*types.CreateJobOutput, error) {
+func CreateJob(ctx context.Context, c *go_x_client.Client, p *types.CreateJobInput) (*types.CreateJobOutput, error) {
 	res := &types.CreateJobOutput{}
 	if err := c.CallAPI(ctx, createJobEndpoint, "POST", p, res); err != nil {
 		return nil, err

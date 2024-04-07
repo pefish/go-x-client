@@ -1,4 +1,4 @@
-package gotwi
+package go_x_client
 
 import (
 	"bytes"
@@ -8,18 +8,13 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"time"
 
-	"github.com/michimani/gotwi/internal/gotwierrors"
-	"github.com/michimani/gotwi/internal/util"
-	"github.com/michimani/gotwi/resources"
-)
-
-const (
-	APIKeyEnvName       = "GOTWI_API_KEY"
-	APIKeySecretEnvName = "GOTWI_API_KEY_SECRET"
+	"github.com/pefish/go-x-client/internal/gotwierrors"
+	"github.com/pefish/go-x-client/internal/util"
+	"github.com/pefish/go-x-client/resources"
+	"github.com/pkg/errors"
 )
 
 type AuthenticationMethod string
@@ -36,8 +31,10 @@ func (a AuthenticationMethod) Valid() bool {
 type NewClientInput struct {
 	HTTPClient           *http.Client
 	AuthenticationMethod AuthenticationMethod
-	OAuthToken           string
-	OAuthTokenSecret     string
+	ApiKey               string
+	ApiKeySecret         string
+	AccessToken          string
+	AccessTokenSecret    string
 	Debug                bool
 }
 
@@ -97,7 +94,13 @@ func NewClient(in *NewClientInput) (*Client, error) {
 		c.Client = in.HTTPClient
 	}
 
-	if err := c.authorize(in.OAuthToken, in.OAuthTokenSecret); err != nil {
+	err := c.authorize(
+		in.ApiKey,
+		in.ApiKeySecret,
+		in.AccessToken,
+		in.AccessTokenSecret,
+	)
+	if err != nil {
 		return nil, err
 	}
 
@@ -126,24 +129,27 @@ func NewClientWithAccessToken(in *NewClientWithAccessTokenInput) (*Client, error
 	return &c, nil
 }
 
-func (c *Client) authorize(oauthToken, oauthTokenSecret string) error {
-	apiKey := os.Getenv(APIKeyEnvName)
-	apiKeySecret := os.Getenv(APIKeySecretEnvName)
+func (c *Client) authorize(
+	apiKey,
+	apiKeySecret,
+	accessToken,
+	accessTokenSecret string,
+) error {
 	if apiKey == "" || apiKeySecret == "" {
-		return fmt.Errorf("env '%s' and '%s' is required.", APIKeyEnvName, APIKeySecretEnvName)
+		return errors.Errorf("apiKey and apiKeySecret is required.")
 	}
 	c.oauthConsumerKey = apiKey
 
 	switch c.AuthenticationMethod() {
 	case AuthenMethodOAuth1UserContext:
-		if oauthToken == "" || oauthTokenSecret == "" {
-			return fmt.Errorf("OAuthToken and OAuthTokenSecret is required for using %s.", AuthenMethodOAuth1UserContext)
+		if accessToken == "" || accessTokenSecret == "" {
+			return fmt.Errorf("AccessToken and AccessTokenSecret is required for using %s.", AuthenMethodOAuth1UserContext)
 		}
 
-		c.oauthToken = oauthToken
+		c.oauthToken = accessToken
 		c.signingKey = fmt.Sprintf("%s&%s",
 			url.QueryEscape(apiKeySecret),
-			url.QueryEscape(oauthTokenSecret))
+			url.QueryEscape(accessTokenSecret))
 	case AuthenMethodOAuth2BearerToken:
 		accessToken, err := GenerateBearerToken(c, apiKey, apiKeySecret)
 		if err != nil {

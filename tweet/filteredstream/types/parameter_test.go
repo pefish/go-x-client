@@ -5,9 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/tweet/filteredstream/types"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/tweet/filteredstream/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -130,7 +129,7 @@ func Test_CreateRulesInput_ResolveEndpoint(t *testing.T) {
 			name: "ok: only required parameter (add)",
 			params: &types.CreateRulesInput{
 				Add: []types.AddingRule{
-					{Value: gotwi.String("test")},
+					{Value: go_x_client.String("test")},
 				},
 			},
 			expect: endpoint + "?dry_run=false",
@@ -139,7 +138,7 @@ func Test_CreateRulesInput_ResolveEndpoint(t *testing.T) {
 			name: "ok: with dry run (true)",
 			params: &types.CreateRulesInput{
 				Add: []types.AddingRule{
-					{Value: gotwi.String("test")},
+					{Value: go_x_client.String("test")},
 				},
 				DryRun: true,
 			},
@@ -149,7 +148,7 @@ func Test_CreateRulesInput_ResolveEndpoint(t *testing.T) {
 			name: "ok: with dry run (false)",
 			params: &types.CreateRulesInput{
 				Add: []types.AddingRule{
-					{Value: gotwi.String("test")},
+					{Value: go_x_client.String("test")},
 				},
 				DryRun: false,
 			},
@@ -182,8 +181,8 @@ func Test_CreateRulesInput_Body(t *testing.T) {
 			name: "ok: has required parameter (add)",
 			params: &types.CreateRulesInput{
 				Add: []types.AddingRule{
-					{Value: gotwi.String("test-value-1"), Tag: gotwi.String("test-tag-1")},
-					{Value: gotwi.String("test-value-2")},
+					{Value: go_x_client.String("test-value-1"), Tag: go_x_client.String("test-tag-1")},
+					{Value: go_x_client.String("test-value-2")},
 				},
 			},
 			expect: strings.NewReader(`{"add":[{"value":"test-value-1","tag":"test-tag-1"},{"value":"test-value-2"}]}`),

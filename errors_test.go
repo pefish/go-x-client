@@ -1,4 +1,4 @@
-package gotwi_test
+package go_x_client_test
 
 import (
 	"errors"
@@ -6,10 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/internal/gotwierrors"
-	"github.com/michimani/gotwi/internal/util"
-	"github.com/michimani/gotwi/resources"
+	"github.com/pefish/go-x-client/internal/gotwierrors"
+	"github.com/pefish/go-x-client/internal/util"
+	"github.com/pefish/go-x-client/resources"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +24,7 @@ func Test_wrapErr(t *testing.T) {
 		},
 		{
 			name: "normal: wrapped",
-			err:  gotwi.ExportWrapErr(errors.New("error test")),
+			err:  go_x_client.ExportWrapErr(errors.New("error test")),
 		},
 		{
 			name:    "nil",
@@ -38,7 +37,7 @@ func Test_wrapErr(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			assert := assert.New(tt)
 
-			ge := gotwi.ExportWrapErr(c.err)
+			ge := go_x_client.ExportWrapErr(c.err)
 			if c.wantNil {
 				assert.Nil(ge)
 				return
@@ -49,7 +48,7 @@ func Test_wrapErr(t *testing.T) {
 			assert.False(ge.OnAPI)
 
 			un := ge.Unwrap()
-			_, ok := un.(*gotwi.GotwiError)
+			_, ok := un.(*go_x_client.GotwiError)
 			assert.False(ok)
 		})
 	}
@@ -142,7 +141,7 @@ func Test_wrapWithAPIErr(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			assert := assert.New(tt)
 
-			ge := gotwi.ExportWrapWithAPIErr(c.err)
+			ge := go_x_client.ExportWrapWithAPIErr(c.err)
 			if c.wantNil {
 				assert.Nil(ge)
 				return
@@ -241,7 +240,7 @@ func Test_non2XXErrorSummary(t *testing.T) {
 		t.Run(c.name, func(tt *testing.T) {
 			assert := assert.New(tt)
 
-			s := gotwi.ExportNon2XXErrorSummary(c.err)
+			s := go_x_client.ExportNon2XXErrorSummary(c.err)
 			assert.Equal(c.expectErrMsg, s)
 		})
 	}
@@ -250,17 +249,17 @@ func Test_non2XXErrorSummary(t *testing.T) {
 func Test_GotwiErrorError(t *testing.T) {
 	cases := []struct {
 		name   string
-		e      *gotwi.GotwiError
+		e      *go_x_client.GotwiError
 		expect string
 	}{
 		{
 			name:   "normal",
-			e:      gotwi.ExportWrapErr(errors.New("error test")),
+			e:      go_x_client.ExportWrapErr(errors.New("error test")),
 			expect: "error test",
 		},
 		{
 			name:   "normal: empty",
-			e:      &gotwi.GotwiError{},
+			e:      &go_x_client.GotwiError{},
 			expect: gotwierrors.ErrorUndefined,
 		},
 		{
@@ -282,12 +281,12 @@ func Test_GotwiErrorError(t *testing.T) {
 func Test_Unwrap(t *testing.T) {
 	cases := []struct {
 		name    string
-		ge      *gotwi.GotwiError
+		ge      *go_x_client.GotwiError
 		wantNil bool
 	}{
 		{
 			name: "normal",
-			ge:   &gotwi.GotwiError{},
+			ge:   &go_x_client.GotwiError{},
 		},
 		{
 			name:    "nil",
@@ -306,7 +305,7 @@ func Test_Unwrap(t *testing.T) {
 				return
 			}
 
-			_, ok := e.(*gotwi.GotwiError)
+			_, ok := e.(*go_x_client.GotwiError)
 			a.False(ok)
 		})
 
@@ -344,7 +343,7 @@ func Test_GotwiAccessNon2XXErrorFields(t *testing.T) {
 
 	a := assert.New(t)
 
-	ge := gotwi.ExportWrapWithAPIErr(n2e)
+	ge := go_x_client.ExportWrapWithAPIErr(n2e)
 
 	a.NotNil(ge)
 	a.Equal("non 2xx error title", ge.Title)

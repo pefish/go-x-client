@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/michimani/gotwi"
+	go_x_client "github.com/pefish/go-x-client"
 )
 
 const (
-	OAuthTokenEnvKeyName       = "GOTWI_ACCESS_TOKEN"
-	OAuthTokenSecretEnvKeyName = "GOTWI_ACCESS_TOKEN_SECRET"
+	OAuthTokenEnvKeyName       = "X_ACCESS_TOKEN"
+	OAuthTokenSecretEnvKeyName = "X_ACCESS_TOKEN_SECRET"
 )
 
 func main() {
@@ -29,12 +29,12 @@ func main() {
 	onlyFollowsRecentActivity(oauth1Client, accountID)
 }
 
-func newOAuth1Client() (*gotwi.Client, error) {
-	in := &gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+func newOAuth1Client() (*go_x_client.Client, error) {
+	in := &go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 		OAuthToken:           os.Getenv(OAuthTokenEnvKeyName),
 		OAuthTokenSecret:     os.Getenv(OAuthTokenSecretEnvKeyName),
 	}
 
-	return gotwi.NewClient(in)
+	return go_x_client.NewClient(in)
 }

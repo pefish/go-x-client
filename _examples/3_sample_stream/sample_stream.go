@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/volumestream"
-	"github.com/michimani/gotwi/tweet/volumestream/types"
+	"github.com/pefish/go-x-client/tweet/volumestream"
+	"github.com/pefish/go-x-client/tweet/volumestream/types"
 )
 
-func samplingTweets(c *gotwi.Client, count int) {
+func samplingTweets(c *go_x_client.Client, count int) {
 	p := &types.SampleStreamInput{}
 	s, err := volumestream.SampleStream(context.Background(), c, p)
 	if err != nil {
@@ -24,7 +23,7 @@ func samplingTweets(c *gotwi.Client, count int) {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Println(gotwi.StringValue(t.Data.ID), gotwi.StringValue(t.Data.Text))
+			fmt.Println(go_x_client.StringValue(t.Data.ID), go_x_client.StringValue(t.Data.Text))
 		}
 
 		if cnt > count {

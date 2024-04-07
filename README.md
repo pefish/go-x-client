@@ -1,9 +1,9 @@
-gotwi
+go_x_client
 ===
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/michimani/gotwi.svg)](https://pkg.go.dev/github.com/michimani/gotwi)
+[![Go Reference](https://pkg.go.dev/badge/github.com/pefish/go-x-client.svg)](https://pkg.go.dev/github.com/pefish/go-x-client)
 [![Twitter API v2](https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fv2)](https://developer.twitter.com/en/docs/twitter-api)
-[![codecov](https://codecov.io/gh/michimani/gotwi/branch/main/graph/badge.svg?token=NA873TE6RV)](https://codecov.io/gh/michimani/gotwi)
+[![codecov](https://codecov.io/gh/michimani/go_x_client/branch/main/graph/badge.svg?token=NA873TE6RV)](https://codecov.io/gh/michimani/go_x_client)
 
 This is a library for using the Twitter API v2 in the Go language. (It is still under development).
 
@@ -92,8 +92,8 @@ Progress of supporting APIs:
 Set the API key and API key secret to environment variables.
 
 ```bash
-export GOTWI_API_KEY='your-api-key'
-export GOTWI_API_KEY_SECRET='your-api-key-secret'
+export X_API_KEY='your-api-key'
+export X_API_KEY_SECRET='your-api-key-secret'
 ```
 
 ## Request with OAuth 1.0a User Context
@@ -109,20 +109,20 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/user/userlookup"
-	"github.com/michimani/gotwi/user/userlookup/types"
+	"github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/user/userlookup"
+	"github.com/pefish/go-x-client/user/userlookup/types"
 )
 
 func main() {
-	in := &gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+	in := &go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 		OAuthToken:           "your-access-token",
 		OAuthTokenSecret:     "your-access-token-secret",
 	}
 
-	c, err := gotwi.NewClient(in)
+	c, err := go_x_client.NewClient(in)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -146,13 +146,13 @@ func main() {
 		return
 	}
 
-	fmt.Println("ID:          ", gotwi.StringValue(u.Data.ID))
-	fmt.Println("Name:        ", gotwi.StringValue(u.Data.Name))
-	fmt.Println("Username:    ", gotwi.StringValue(u.Data.Username))
+	fmt.Println("ID:          ", go_x_client.StringValue(u.Data.ID))
+	fmt.Println("Name:        ", go_x_client.StringValue(u.Data.Name))
+	fmt.Println("Username:    ", go_x_client.StringValue(u.Data.Username))
 	fmt.Println("CreatedAt:   ", u.Data.CreatedAt)
 	if u.Includes.Tweets != nil {
 		for _, t := range u.Includes.Tweets {
-			fmt.Println("PinnedTweet: ", gotwi.StringValue(t.Text))
+			fmt.Println("PinnedTweet: ", go_x_client.StringValue(t.Text))
 		}
 	}
 }
@@ -181,28 +181,28 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/tweet/managetweet"
-	"github.com/michimani/gotwi/tweet/managetweet/types"
+	"github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/tweet/managetweet"
+	"github.com/pefish/go-x-client/tweet/managetweet/types"
 )
 
 func main() {
-	in := &gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth1UserContext,
+	in := &go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth1UserContext,
 		OAuthToken:           "your-access-token",
 		OAuthTokenSecret:     "your-access-token-secret",
 	}
 
-	c, err := gotwi.NewClient(in)
+	c, err := go_x_client.NewClient(in)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	p := &types.CreateInput{
-		Text: gotwi.String("This is a test tweet with poll."),
+		Text: go_x_client.String("This is a test tweet with poll."),
 		Poll: &types.CreateInputPoll{
-			DurationMinutes: gotwi.Int(5),
+			DurationMinutes: go_x_client.Int(5),
 			Options: []string{
 				"Cyan",
 				"Magenta",
@@ -218,7 +218,7 @@ func main() {
 		return
 	}
 
-	fmt.Printf("[%s] %s\n", gotwi.StringValue(res.Data.ID), gotwi.StringValue(res.Data.Text))
+	fmt.Printf("[%s] %s\n", go_x_client.StringValue(res.Data.ID), go_x_client.StringValue(res.Data.Text))
 }
 ```
 
@@ -247,15 +247,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/michimani/gotwi"
-	"github.com/michimani/gotwi/fields"
-	"github.com/michimani/gotwi/user/userlookup"
-	"github.com/michimani/gotwi/user/userlookup/types"
+	"github.com/pefish/go-x-client"
+	"github.com/pefish/go-x-client/fields"
+	"github.com/pefish/go-x-client/user/userlookup"
+	"github.com/pefish/go-x-client/user/userlookup/types"
 )
 
 func main() {
-	c, err := gotwi.NewClient(&gotwi.NewClientInput{
-		AuthenticationMethod: gotwi.AuthenMethodOAuth2BearerToken,
+	c, err := go_x_client.NewClient(&go_x_client.NewClientInput{
+		AuthenticationMethod: go_x_client.AuthenMethodOAuth2BearerToken,
 	})
 	if err != nil {
 		fmt.Println(err)
@@ -281,13 +281,13 @@ func main() {
 		return
 	}
 
-	fmt.Println("ID:          ", gotwi.StringValue(u.Data.ID))
-	fmt.Println("Name:        ", gotwi.StringValue(u.Data.Name))
-	fmt.Println("Username:    ", gotwi.StringValue(u.Data.Username))
+	fmt.Println("ID:          ", go_x_client.StringValue(u.Data.ID))
+	fmt.Println("Name:        ", go_x_client.StringValue(u.Data.Name))
+	fmt.Println("Username:    ", go_x_client.StringValue(u.Data.Username))
 	fmt.Println("CreatedAt:   ", u.Data.CreatedAt)
 	if u.Includes.Tweets != nil {
 		for _, t := range u.Includes.Tweets {
-			fmt.Println("PinnedTweet: ", gotwi.StringValue(t.Text))
+			fmt.Println("PinnedTweet: ", go_x_client.StringValue(t.Text))
 		}
 	}
 }
@@ -312,11 +312,11 @@ PinnedTweet:  真偽をハッキリしたい西城秀樹「ブーリアン、ブ
 If you already have a pre-generated access token (e.g. OAuth 2.0 Authorization Code with PKCE), you can use `NewClientWithAccessToken()` function to generate a Gotwi client.
 
 ```go
-in := &gotwi.NewClientWithAccessTokenInput{
+in := &go_x_client.NewClientWithAccessTokenInput{
 	AccessToken: "your-access-token",
 }
 
-c, err := gotwi.NewClientWithAccessToken(in)
+c, err := go_x_client.NewClientWithAccessToken(in)
 if err != nil {
 	// error handling
 }
@@ -337,7 +337,7 @@ if err != nil {
 	fmt.Println(err)
 
 	// more error information
-	ge := err.(*gotwi.GotwiError)
+	ge := err.(*go_x_client.GotwiError)
 	if ge.OnAPI {
 		fmt.Println(ge.Title)
 		fmt.Println(ge.Detail)
@@ -366,11 +366,11 @@ if err != nil {
 
 ## More examples
 
-See [_examples](https://github.com/michimani/gotwi/tree/main/_examples) directory.
+See [_examples](https://github.com/pefish/go-x-client/tree/main/_examples) directory.
 
 # Licence
 
-[MIT](https://github.com/michimani/gotwi/blob/main/LICENCE)
+[MIT](https://github.com/pefish/go-x-client/blob/main/LICENCE)
 
 # Author
 
